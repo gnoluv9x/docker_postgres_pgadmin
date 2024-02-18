@@ -1,0 +1,30 @@
+version: "3.8"
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: local_pgdb
+    restart: unless-stopped
+    ports:
+      - "5434:5432"
+    environment:
+      POSTGRES_USER: gnoluv
+      POSTGRES_PASSWORD: gnoluv
+      POSTGRES_DB: db
+    volumes:
+      # - ./local_pgdata:/var/lib/postgresql/data/
+      - ./example:/home/
+  pgadmin:
+    image: dpage/pgadmin4:8.3
+    container_name: pgadmin4_container
+    restart: always
+    ports:
+      - "8800:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: vulongpt@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: vulongpt
+    volumes:
+      - ./pgadmin-data:/var/lib/pgadmin
+
+volumes:
+  local_pgdata:
+  pgadmin-data:
